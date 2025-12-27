@@ -27,8 +27,6 @@ type DBConfig struct {
 	MaxIdleConns    int
 	MaxOpenConns    int
 	ConnMaxLifetime time.Duration
-
-	AutoMigrate bool
 }
 
 type Config struct {
@@ -54,7 +52,6 @@ func LoadFromEnv() (Config, error) {
 	cfg.DB.MaxIdleConns = env.Int("DB_MAX_IDLE_CONNS", 10)
 	cfg.DB.MaxOpenConns = env.Int("DB_MAX_OPEN_CONNS", 100)
 	cfg.DB.ConnMaxLifetime = env.Duration("DB_CONN_MAX_LIFETIME", time.Hour)
-	cfg.DB.AutoMigrate = env.Bool("DB_AUTOMIGRATE", false)
 
 	cfg.CountViews = countviews.New()
 	featuresManager := features.NewManager(cfg.CountViews)
