@@ -26,6 +26,10 @@ func NewRouter(deps Deps) *gin.Engine {
 		ginContext.JSON(http.StatusOK, gin.H{"status": "ok"})
 	})
 
+	engine.GET("/favicon.ico", func(ginContext *gin.Context) {
+		ginContext.Status(http.StatusNoContent)
+	})
+
 	handlers := NewHandlers(deps)
 	engine.GET("/:slug", handlers.Redirect())
 
