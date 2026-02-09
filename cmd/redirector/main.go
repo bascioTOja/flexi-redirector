@@ -37,7 +37,19 @@ func main() {
 		}
 	}()
 
-	repos := repository.NewGormRepositories(gormDB)
+	shortURLSchema := repository.ShortURLSchema{
+		TableName:    cfg.DB.TableShortUrlName,
+		ColId:        cfg.DB.ColShortUrlId,
+		ColCreatedBy: cfg.DB.ColShortUrlCreatedBy,
+		ColName:      cfg.DB.ColShortUrlName,
+		ColSlug:      cfg.DB.ColShortUrlSlug,
+		ColLongURL:   cfg.DB.ColShortUrlLongUrl,
+		ColViews:     cfg.DB.ColShortUrlViews,
+		ColUpdatedAt: cfg.DB.ColShortUrlUpdatedAt,
+		ColCreatedAt: cfg.DB.ColShortUrlCreatedAt,
+	}
+
+	repos := repository.NewGormRepositories(gormDB, shortURLSchema)
 
 	router := httpapp.NewRouter(httpapp.Deps{
 		ShortURLs:  repos.ShortURLs,
